@@ -10,7 +10,10 @@ const officeController = new OfficeController();
 routes.get('/office', officeController.show);
 
 routes.post('/employees', employeesController.create);
+
 routes.get('/employees', employeesController.index);
+routes.get('/search', employeesController.search);
+
 routes.get('/login/:nm_username/:pw_password', employeesController.login);
 
 export default routes;

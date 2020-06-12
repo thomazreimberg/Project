@@ -24,13 +24,35 @@ class EmployeesController {
                 .first();
 
             if(contains == null){
-                return response.status(401).json({ erro: "Login inválido"});
+                return response.status(401).json({ erro: "Login inválido. Tente novamente."});
             }
             
             return response.json(contains);
 
         } catch (e) {
             return response.status(401).json({ erro: e});
+        }
+    }
+
+    async search(request: Request, response: Response) {
+        try {
+            const {
+                fs_employee,
+                vl_salary,
+                ds_active,
+                ds_genre 
+            } = request.query;
+    
+            const employees = await knex('tb_employees')
+                .where('fs_employee', 'like', String(fs_employee))
+                .where('vl_salary', '=', Number(vl_salary))
+                .where('ds_active', '=', Boolean(ds_active))
+                .where('ds_genre', '=', String(ds_genre))
+                .select('tb_employees.*');
+
+            return response.json(employees);
+        } catch (error) {
+            return response.status(401).json({ erro: error});
         }
     }
 
@@ -72,15 +94,18 @@ class EmployeesController {
                 id_office
             };
 
-            //employeesBusiness.create(employee);
             
+            const flag = employeesBusiness.create(employee);
+            if(flag != ''){
+                throw (flag);
+            }
             await trx('tb_employees').insert(employee);
 
             await trx.commit();
     
             return response.json('Funcionário cadastrado com sucesso.');
-        } catch (e) {
-            return response.status(401).json({ erro: e});
+        } catch (error) {
+            return response.status(401).json({ erro: error});
         }
     }
 }

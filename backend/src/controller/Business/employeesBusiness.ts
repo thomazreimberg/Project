@@ -2,7 +2,7 @@ import BusinessError from "./businessError";
 
 
 interface Employees {
-    fs_employee: string,
+    fs_employee: string
     sn_employee: string,
     nm_username: string,
     pw_password: string,
@@ -12,26 +12,27 @@ interface Employees {
     dt_admission: Date,    //falta validar
     aw_image: string,
     ds_genre: string,
-    ds_active: boolean,
-    ds_office: string
+    ds_active: boolean
 }
 
 class EmployeesBusiness {
     create(employee: Employees){
         if(employee.fs_employee == '' || employee.fs_employee.length > 150) {
-            throw new BusinessError('Informe o nome do funcionário corretamente.');
+            return ('Informe um nome de funcionário válido.');
         } else if(employee.sn_employee == '' || employee.sn_employee.length > 250) {
-            throw new BusinessError('Informe o sobrenome do funcionário.');
+            return ('Informe o sobrenome do funcionário.');
         } else if(employee.nm_username == ''|| employee.pw_password.length > 16) {
-            throw new BusinessError('Informe o nome do usuário.');
+            return ('Informe o nome do usuário.');
         } else if(employee.pw_password == '' || employee.pw_password.length > 16) {
-            throw new BusinessError('Informe uma senha válida.');
+            return('Informe uma senha válida.');
         } else if(employee.vl_salary == 0.00) {
-            throw new BusinessError('Informe o valor do salário.');
+            return ('Informe o valor do salário.');
         } else if(employee.ds_email == '' || employee.ds_email.length > 200) {
-            throw new BusinessError('Informe um email válido.');
+            return ('Informe um email válido.');
         } else if(employee.ds_genre == '') {
-            throw new BusinessError('Informe um gênero.');
+            return ('Informe um gênero.');
+        } else {
+            return '';
         }
     }
 }
