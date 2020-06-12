@@ -108,6 +108,34 @@ class EmployeesController {
             return response.status(401).json({ erro: error});
         }
     }
+
+    async update(request: Request, response: Response) {
+        const{
+            employee_id,
+            fs_employee, //Irei colocar outros parâmetros
+            sn_employee
+        } = request.params;
+
+        await knex('tb_employees')
+            .where('id_employee', '=', employee_id)
+            .update({
+                fs_employee: fs_employee,
+                sn_employee: sn_employee,
+                thisKeyIsSkipped: undefined
+            })
+
+        return response.json('Alterações efetuadas.');
+    }
+
+    async delete(request: Request, response: Response) {
+        const { id } = request.params;
+
+        await knex('tb_employees')
+            .where('id', '=', id)
+            .delete();
+
+        return response.json('Funcionário deletado.');
+    }
 }
 
 export default EmployeesController;

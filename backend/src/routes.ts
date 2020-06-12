@@ -13,6 +13,8 @@ routes.post('/employees', employeesController.create);
 
 routes.get('/employees', employeesController.index);
 routes.get('/search', employeesController.search);
+routes.put('/employees', employeesController.update);
+routes.delete('/employees', employeesController.delete);
 
 routes.get('/login/:nm_username/:pw_password', employeesController.login);
 
