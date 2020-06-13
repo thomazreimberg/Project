@@ -44,7 +44,7 @@ class EmployeesController {
             } = request.query;
     
             const employees = await knex('tb_employees')
-                .where('fs_employee', 'like', String(fs_employee))
+                .where('fs_employee', 'like', `%${'%' + fs_employee+ '%'}%`)
                 .where('vl_salary', '=', Number(vl_salary))
                 .where('ds_active', '=', Boolean(ds_active))
                 .where('ds_genre', '=', String(ds_genre))
@@ -111,18 +111,18 @@ class EmployeesController {
 
     async update(request: Request, response: Response) {
         const{
-            employee_id,
-            fs_employee, //Irei colocar outros parâmetros
+            id_employee,
+            fs_employee, //Irei colocar outros parâmetros cask necessário
             sn_employee
-        } = request.params;
+        } = request.body;
 
         await knex('tb_employees')
-            .where('id_employee', '=', employee_id)
+            .where('id_employee', '=', id_employee)
             .update({
                 fs_employee: fs_employee,
                 sn_employee: sn_employee,
                 thisKeyIsSkipped: undefined
-            })
+            });
 
         return response.json('Alterações efetuadas.');
     }
