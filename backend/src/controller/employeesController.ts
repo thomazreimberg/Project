@@ -131,7 +131,7 @@ class EmployeesController {
         const { id } = request.params;
 
         await knex('tb_employees')
-            .where('id', '=', id)
+            .where('id_employee', '=', id)
             .delete();
 
         return response.json('Funcionário deletado.');
