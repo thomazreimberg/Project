@@ -1,9 +1,8 @@
 import Key from '../utils/crypt';
-const key = new Key();
 import { v4 as uuidv4 } from 'uuid';
-const privateKey = key.privateKey();
 
-import { Request, Response } from 'express';
+const key = new Key();
+const privateKey = key.privateKey();
 
 class KeyController {
     cryptography(id: number) {
@@ -13,7 +12,10 @@ class KeyController {
             let date = generateExpirationDate();
 
             let token = id + '|' + number + '|' + uuid + '|' + date;
-            let cryptoToken = crypto(token);
+            let cryptoToken = {
+                token: crypto(token),
+                dt_expiracao: date
+            };
 
             return cryptoToken;
         } catch (e) {

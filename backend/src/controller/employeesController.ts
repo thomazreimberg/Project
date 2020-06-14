@@ -18,7 +18,7 @@ class EmployeesController {
             const {
                 nm_username,
                 pw_password
-            } = request.params;
+            } = request.body;
 
             const user = await knex('tb_employees')
                 .where('nm_username', '=', nm_username)

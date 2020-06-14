@@ -14,7 +14,7 @@ routes.get('/employees', employeesController.index);
 routes.get('/search', employeesController.search);
 
 routes.post('/employees', employeesController.create);
-routes.post('/login/:nm_username/:pw_password', employeesController.login);
+routes.post('/login', employeesController.login);
 
 routes.put('/employees', employeesController.update);
 
