@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import EmployeesBusiness from './Business/employeesBusiness';
+import KeyController from './criptography';
 
 const employeesBusiness = new EmployeesBusiness();
+const keyController = new KeyController();
 
 class EmployeesController {
     async index(request: Request, response: Response) {
@@ -18,16 +20,20 @@ class EmployeesController {
                 pw_password
             } = request.params;
 
-            const contains = await knex('tb_employees')
+            const user = await knex('tb_employees')
                 .where('nm_username', '=', nm_username)
                 .andWhere('pw_password', '=', pw_password)
                 .first();
 
-            if(contains == null){
+            if(user == null){
                 return response.status(401).json({ erro: "Login inválido. Tente novamente."});
             }
+
+            let id = user[0];
+
+            const token = keyController.cryptography(id);
             
-            return response.json(contains);
+            return response.json(token);
 
         } catch (e) {
             return response.status(401).json({ erro: e});
