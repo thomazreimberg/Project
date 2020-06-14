@@ -7,15 +7,22 @@ const routes = express.Router();
 const employeesController = new EmployeesController();
 const officeController = new OfficeController();
 
-routes.get('/office', officeController.show);
+import Teste from './controller/teste';
+const teste = new Teste();
 
-routes.post('/employees', employeesController.create);
+routes.get('/office', officeController.show);
 
 routes.get('/employees', employeesController.index);
 routes.get('/search', employeesController.search);
-routes.put('/employees', employeesController.update);
-routes.delete('/employees/:id', employeesController.delete);
 
-routes.get('/login/:nm_username/:pw_password', employeesController.login);
+routes.get('/crypto/:id', teste.login);
+routes.get('/decrypt/:id', teste.login);
+
+routes.post('/employees', employeesController.create);
+routes.post('/login/:nm_username/:pw_password', employeesController.login);
+
+routes.put('/employees', employeesController.update);
+
+routes.delete('/employees/:id', employeesController.delete);
 
 export default routes;
