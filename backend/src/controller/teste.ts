@@ -9,7 +9,7 @@ import { Request, Response } from 'express';
 class KeyController {
     login(request: Request, response: Response) {
         try {
-            const { id } = request.body;
+            const { id } = request.params;
 
             let number = generateCode();
             let uuid = uuidv4();
@@ -26,8 +26,8 @@ class KeyController {
 }
 
 function crypto(token: string) {
-    //let token2 = privateKey.encrypt(Buffer.from(token), 'utf8');   // <-------------------------------------
-    return token;
+    let cryptedToken = privateKey.encrypt(token, 'base64');
+    return cryptedToken;
 }
 
 function generateExpirationDate() {

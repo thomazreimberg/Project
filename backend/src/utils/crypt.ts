@@ -4,7 +4,7 @@ var _rsa;
 var _rsa2;
 class Key{
     privateKey() {
-        const privatePem = '-----BEGIN PRIVATE KEY-----\n'
+        const privatePem = '-----BEGIN PRIVATE KEY-----\n'+
         'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDlYnVlvSQfQ4Pe\n'+
         'r42+HrDQXAcmFjj/PcmREreJ2vVga/RVA66hr/wwxHsCA6nfXCzE0s3F5c+m+kwo\n'+
         'IqCx8PgXj9dq5OfeALvd0RSVHaL+yu7rNY9R0YDWI48pbKUTj4n5J6QOI9ZVJUOH\n'+
@@ -31,12 +31,8 @@ class Key{
         'jNwbyZmVsyfKSV5TD8LdWvDZ1XloqfFHi8gfZtkeDMpcg/IJmxfYaE9hrRqk0G8a\n'+
         'lIsBq3YVeJTQMLe8rc73IFVHL1c9qZZWJAHfwNcrKFtfV3FtFXKxkqLZxuPlJDfb\n'+
         'udd0UKHFJPjYHHObRncYMNg=\n'+
-        '-----END PRIVATE KEY-----';
-
+        '-----END PRIVATE KEY-----'; 
         _rsa = new NodeRSA(privatePem, "pkcs8-private-pem");
-        //let token2 = _rsa.encrypt(Buffer.from('token'), 'base64');
-        //let token3 = _rsa.encrypt(Buffer.from(_rsa), 'utf8');
-        //_rsa.encryptPrivate(Buffer.from('token'), 'utf8');
 
         return _rsa;
     }
