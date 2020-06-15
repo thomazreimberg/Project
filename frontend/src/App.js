@@ -1,12 +1,11 @@
 import React from 'react';
-import Routes from './routes';
 
 import './global.css';
 
-function App() {
+import Teste from './routes';
+
+export default function App() {
   return (
-    <Routes />
+    <Teste />
   );
 }
-
-export default App;

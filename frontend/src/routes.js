@@ -1,13 +1,18 @@
 import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 
-//import Home from './pages/Home';
-//import CreatePoint from './pages/CreatePoint';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import NewEmployee from './pages/NewEmployee';
+import ShowEmployees from './pages/ShowEmployees';
 
-const Routes = () => {
+function Routes() {
     return (
         <BrowserRouter>
-            
+            <Route path="/" exact component={Login}/>
+            <Route path="/home" component={Home} />
+            <Route path="/newemployee" component={NewEmployee} />
+            <Route path="/showemployee" component={ShowEmployees} />
         </BrowserRouter>
     );
 }

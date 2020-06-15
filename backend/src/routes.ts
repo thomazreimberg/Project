@@ -18,7 +18,7 @@ routes.get('/office', officeController.show);
 routes.get('/employees', employeesController.index);
 routes.get('/search', employeesController.search);
 
-routes.post('/employees', upload.single('image'), employeesController.create);
+routes.post('/employees', upload.single('aw_image'), employeesController.create);
 routes.post('/login', employeesController.login);
 
 routes.put('/employees', employeesController.update);
