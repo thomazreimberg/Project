@@ -1,29 +1,37 @@
 import React from 'react';
 import './style.css';
 
-import Popup from '../../components/popup/index';
+import { Link } from 'react-router-dom';
+import { FiLogIn } from 'react-icons/fi';
 
-export default class Logon extends React.Component {
-    constructor(props) {
-        super(props);
+import BackGround from '../../assets/geek-store-background.png';
+import BackGround2 from '../../assets/geek-store-background-2.png';
 
-        this.buttonClick = this.buttonClick.bind(this);
+export default function Logon(){
+    return(
+        <div className="logon-container">
+            <section className="form">
+                <img src={BackGround2} alt="Geek Store 2"/>
 
-        this.state = { message: 'Oieeee', show: 0 };
-    }
+                <form>
+                    <h1>Faça seu Logon</h1>
+                    <input placeholder="Username"
+                    value=""
+                    />
+                    <input placeholder="Password"
+                    value=""
+                    />
 
-    buttonClick() {
-        this.refs.popup.showToast('oieeeee');
-    }
+                    <button className="button" type="submit">Entrar</button>
 
-    render() {
-        return(
-            <div>
-                <h1>A</h1>
-                <h1>Show: {this.state.message}</h1>
-                <button onClick={this.buttonClick} value="Teste">Testeee</button>
-                <Popup ref="popup" message={this.state.message} show={this.state.show} />
-          </div>
-        );
-    }
+                    <Link className="back-link" to="/">
+                        <FiLogIn size={16} color="#66b3ff" />
+                        Não tenho cadastro
+                    </Link >
+                </form>
+            </section>
+
+            <img src={BackGround} alt="Geek Store"/>
+        </div>
+    );
 }
