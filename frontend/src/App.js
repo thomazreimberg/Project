@@ -2,10 +2,10 @@ import React from 'react';
 
 import './global.css';
 
-import Teste from './routes';
+import Routes from './routes';
 
 export default function App() {
   return (
-    <Teste />
+    <Routes />
   );
 }
