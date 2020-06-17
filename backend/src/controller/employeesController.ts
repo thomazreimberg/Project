@@ -19,14 +19,14 @@ class EmployeesController {
                 nm_username,
                 pw_password
             } = request.body;
-
+            
             const user = await knex('tb_employees')
                 .where('nm_username', '=', nm_username)
                 .andWhere('pw_password', '=', pw_password)
                 .first();
 
             if(user == null){
-                return response.status(401).json({ erro: "Login inválido. Tente novamente."});
+                return response.status(400).json({ erro: "Login inválido. Tente novamente."});
             }
 
             let id = user[0];
