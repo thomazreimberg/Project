@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 
 import Popup from '../../components/popup/index';
-
+/*
 export default class Logon extends React.Component {
     constructor(props) {
         super(props);
@@ -26,4 +26,4 @@ export default class Logon extends React.Component {
           </div>
         );
     }
-}
+} */
