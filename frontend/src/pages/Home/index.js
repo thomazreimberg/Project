@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Dropzone from '../../components/dropzone';
 import 'react-toastify/dist/ReactToastify.css';
 
-//import './styles.css';
+import './style.css';
 import api from '../../services/api';
 
 export default class NewIncident{
