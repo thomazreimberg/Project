@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
 import api from '../../services/api';
 
+import BackGround from '../../assets/geek-store-background.png';
+
 export default class NewIncident{
     render() {
         const [fs_employee, setFs_employee] = useState();
@@ -70,20 +72,24 @@ export default class NewIncident{
 
         return(
             <div className="new-employee-container">
-                <div className="content">
-                    <section>
-                        <img src="" alt="Geek Store"/>
-
-                        <h1>Cadastrar novo funcionário</h1>
-                        <p>Preencha todos os campos para cadastrar.</p>
+                <header>
+                        <img src={BackGround} alt="Geek Store"/>
 
                         <Link className="back-link" to="/home">
                             <FiArrowLeft size={16} color="#E02041" />
                             Voltar para home
                         </Link >
-                    </section>
+                    </header>
 
+                <div className="content">
+                    
+                    <br/>
                     <form onSubmit={handleNewEmployee}>
+                        <br/>
+                        <br/>
+                        <h1>Cadastrar novo funcionário</h1>
+                        <p>Preencha todos os campos para cadastrar.</p>
+                        <br/>
                         <Dropzone onFileUploaded={setSelectedFile} />
 
                         <input 
@@ -129,21 +135,22 @@ export default class NewIncident{
                         onChange={e => setDs_email(e.target.value)}
                         />
 
-                        <input 
-                        type="date" 
-                        placeholder="Data de nascimento"
-                        value={dt_birth}
-                        onChange={e => setDt_birth(e.target.value)}
-                        />
-
-                        <input 
-                        type="date" 
-                        placeholder="Data de admissão"
-                        value={dt_admission}
-                        onChange={e => setDt_admission(e.target.value)}
-                        />
-
-                        <form action="">
+                        <div className="date">
+                            <p>Data de nascimento</p>
+                            <input 
+                            type="date" 
+                            value={dt_birth}
+                            onChange={e => setDt_birth(e.target.value)}
+                            />
+                            <p>Data de admissão</p>
+                            <input 
+                            type="date" 
+                            value={dt_admission}
+                            onChange={e => setDt_admission(e.target.value)}
+                            />
+                        </div>
+                        
+                        <div className="radio">
                             <input 
                             type="radio"
                             className="gender"
@@ -154,14 +161,15 @@ export default class NewIncident{
                             type="radio"
                             className="gender"
                             /> F
-                        </form>
-
-                        <input 
-                        type="checkbox"
-                        placeholder="Ativo"
-                        value={ds_active}
-                        onChange={e => setDs_active(e.target.value)}
-                        />
+                        </div>
+                        <div className="active">
+                            <input 
+                            type="checkbox"
+                            placeholder="Ativo"
+                            value={ds_active}
+                            onChange={e => setDs_active(e.target.value)}
+                            />Ativo    
+                        </div>
 
                         <button className="button" type="submit">Cadastrar</button>
                     </form>
