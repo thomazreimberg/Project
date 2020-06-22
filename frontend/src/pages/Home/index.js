@@ -19,7 +19,6 @@ export default class NewIncident{
         const [ds_email, setDs_email] = useState();
         const [dt_birth, setDt_birth] = useState();
         const [dt_admission, setDt_admission] = useState();
-        const [aw_image, setAw_image] = useState();
         const [ds_genre, setDs_genre] = useState();
         const [ds_active, setDs_active] = useState();
         const [ds_office, setDs_office] = useState();
@@ -30,6 +29,8 @@ export default class NewIncident{
         const notify = function(response) { toast.success(response) };
         const notifyUnsuccess = function(response) { toast.error(response) };
         const notifyToken = function(response) { toast(response) };
+
+
 
         async function handleNewEmployee(e){
             e.preventDefault();
@@ -43,7 +44,7 @@ export default class NewIncident{
                 ds_email,
                 dt_birth,
                 dt_admission,
-                aw_image,
+                aw_image: selectedFile,
                 ds_genre,
                 ds_active,
                 ds_office
@@ -91,18 +92,21 @@ export default class NewIncident{
                         value={fs_employee}
                         onChange={e => setFs_employee(e.target.value)}
                         />
+
                         <input 
                         placeholder="Sobrenome do funcionário"
                         type="text"
                         value={sn_employee}
                         onChange={e => setSn_employee(e.target.value)}
                         />
+
                         <input 
                         placeholder="Nome do usuário"
                         type="text"
                         value={nm_username}
                         onChange={e => setNm_username(e.target.value)}
                         />
+
                         <input 
                         placeholder="Senha"
                         type="password"
@@ -110,23 +114,53 @@ export default class NewIncident{
                         value={pw_password}
                         onChange={e => setPw_password(e.target.value)}
                         />
+
                         <input 
                         placeholder="Salário"
                         type="number"
                         value={vl_salary}
                         onChange={e => setVl_salary(e.target.value)}
                         />
-                        <textarea 
+
+                        <input 
                         type="email" 
                         placeholder="E-mail"
                         value={ds_email}
                         onChange={e => setDs_email(e.target.value)}
                         />
+
                         <input 
                         type="date" 
                         placeholder="Data de nascimento"
                         value={dt_birth}
                         onChange={e => setDt_birth(e.target.value)}
+                        />
+
+                        <input 
+                        type="date" 
+                        placeholder="Data de admissão"
+                        value={dt_admission}
+                        onChange={e => setDt_admission(e.target.value)}
+                        />
+
+                        <form action="">
+                            <input 
+                            type="radio"
+                            className="gender"
+                            value={ds_genre}
+                            onChange={e => setDs_genre(e.target.value)}
+                            /> M
+                            <input 
+                            type="radio"
+                            className="gender"
+                            /> F
+                        </form>
+
+                        <input 
+                        type="checkbox"
+                        placeholder="Ativo"
+                        value={ds_active}
+                        onChange={e => setDs_active(e.target.value)}
                         />
 
                         <button className="button" type="submit">Cadastrar</button>
