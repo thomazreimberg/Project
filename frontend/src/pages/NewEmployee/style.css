@@ -1,0 +1,87 @@
+.new-employee-container header {
+    margin-top: 48px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-employee-container header a {
+    color: var(--title-color);
+    font-weight: bold;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.new-employee-container header a svg {
+    
+    margin-right: 16px;
+    color: var(--primary-color);
+}
+
+.new-employee-container header img{
+    width: 50%;
+    height: 20%;
+}
+
+.new-employee-container {
+    width: 100%; 
+   max-width: 1120px; 
+   height: 100vh; 
+   margin: 0 auto; 
+   
+   display: flex; 
+   align-items: center; 
+   justify-content: center; 
+} 
+   
+.new-employee-container .content { 
+    width: 100%;
+    padding: 96px;
+    background: #f0f0f5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+
+.new-employee-container .content section {
+    width: 100%;
+    max-width: 380px;
+}
+
+.new-employee-container .content section h1 {
+    margin: 64px 0 32px;
+    font-size: 32px;
+}
+
+.new-employee-container .content section p {
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.new-employee-container .content form p{
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.new-employee-containerr .content form {
+    width: 100%;
+    max-width: 450px;
+}
+
+.new-employee-container .content form input,
+.new-employee-container .content form textarea{
+    margin-top: 8px;
+}
+
+.new-employee-container .content form input .gender{
+    width: 50px;
+}
