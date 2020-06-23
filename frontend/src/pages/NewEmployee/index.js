@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,8 +11,8 @@ import api from '../../services/api';
 
 import BackGround from '../../assets/geek-store-background.png';
 
-export default class NewEmployee{
-    render() {
+export default function NewEmployee(props){
+    
         const [fs_employee, setFs_employee] = useState();
         const [sn_employee, setSn_employee] = useState();
         const [nm_username, setNm_username] = useState();
@@ -25,6 +25,7 @@ export default class NewEmployee{
         const [ds_active, setDs_active] = useState();
         const [ds_office, setDs_office] = useState();
         const [ selectedFile, setSelectedFile ] = useState(); 
+        const [ offices, setOffices ] = useState([]);
 
         const history = useHistory();
 
@@ -32,7 +33,17 @@ export default class NewEmployee{
         const notifyUnsuccess = function(response) { toast.error(response) };
         const notifyToken = function(response) { toast(response) };
 
-        async function handleNewEmployee(e){
+
+        useEffect(() => {
+            loadOffices()
+                .then(r => {setOffices(r.data); console.log(r.data);})
+        }, []);
+
+        const loadOffices = async () => {
+            return await api.get('office');
+        }
+
+        const handleNewEmployee = async (e) => {
             e.preventDefault();
 
             const data = {
@@ -68,6 +79,8 @@ export default class NewEmployee{
             }
         }
 
+
+        
         return(
             <div className="new-employee-container">
                 <header>
@@ -172,8 +185,9 @@ export default class NewEmployee{
                         id="office"
                         value={ds_office}
                         >
-                            <option value="0">Cargo</option>
-                            {}
+                                {offices.map(o => (
+                                    <option key={o.ds_office} value={o.ds_office}>{o.ds_office}</option>
+                                ))}
                         </select>
 
                         <button className="button" type="submit">Cadastrar</button>
@@ -181,5 +195,5 @@ export default class NewEmployee{
                 </div>
             </div>
         );
-    }
+    
 }

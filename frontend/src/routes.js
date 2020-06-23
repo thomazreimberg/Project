@@ -8,7 +8,6 @@ import ShowEmployees from './pages/ShowEmployees';
 
 const login = new Login();
 const home = new Home();
-const newEmployee = new NewEmployee();
 const showEmployees = new ShowEmployees();
 
 function Routes() {
@@ -16,7 +15,7 @@ function Routes() {
         <BrowserRouter>
             <Route path="/" exact component={login.render}/>
             <Route path="/home" component={home.render} />
-            <Route path="/newemployee" component={newEmployee.render} />
+            <Route path="/newemployee" component={NewEmployee} />
             <Route path="/showemployee" component={showEmployees.render} />
         </BrowserRouter>
     );
