@@ -23,7 +23,7 @@ class KeyController {
         }
     }
 
-    decryptofraphy(token: string) {
+    decryptography(token: string) {
         try {
             let tokenArray = decrypt(token).split('|');
             return tokenArray[3];

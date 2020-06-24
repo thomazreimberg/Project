@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import EmployeesBusiness from './Business/employeesBusiness';
-import KeyController from './criptography';
+import Cryptography from './criptography';
 
 const employeesBusiness = new EmployeesBusiness();
-const keyController = new KeyController();
+const cryptography = new Cryptography();
 
 class EmployeesController {
     async index(request: Request, response: Response) {
@@ -31,7 +31,7 @@ class EmployeesController {
 
             let id = user[0];
 
-            const token = keyController.cryptography(id);
+            const token = cryptography.cryptography(id);
             
             return response.json(token);
 
@@ -76,7 +76,8 @@ class EmployeesController {
                 aw_image,
                 ds_genre,
                 ds_active,
-                ds_office
+                ds_office,
+                token
             } = request.body;
 
             const trx = await knex.transaction();  
@@ -84,7 +85,9 @@ class EmployeesController {
             const tb_office = await trx('tb_office')
                 .where('ds_office', '=', String(ds_office))
                 .first();
+
             const id_office = tb_office.id_office;
+
             const employee = {
                 fs_employee,
                 sn_employee,
@@ -97,10 +100,15 @@ class EmployeesController {
                 aw_image: request.file.filename,
                 ds_genre,
                 ds_active,
-                id_office
+                id_office,
+                token
             };
-
             
+            let expirationDate = new Date(cryptography.decryptography(token));
+            if(new Date > expirationDate) {
+                throw ('Token expirado, faça login novamente.');
+            }
+
             const flag = employeesBusiness.create(employee);
             if(flag != ''){
                 throw (flag);
@@ -111,14 +119,14 @@ class EmployeesController {
     
             return response.json('Funcionário cadastrado com sucesso.');
         } catch (error) {
-            return response.status(401).json({ erro: error});
+            return response.status(401).json(error);
         }
     }
 
     async update(request: Request, response: Response) {
         const{
             id_employee,
-            fs_employee, //Irei colocar outros parâmetros cask necessário
+            fs_employee,
             sn_employee
         } = request.body;
 
