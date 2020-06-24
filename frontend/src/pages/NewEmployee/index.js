@@ -36,7 +36,7 @@ export default function NewEmployee(props){
 
         useEffect(() => {
             loadOffices()
-                .then(r => {setOffices(r.data); console.log(r.data);})
+                .then(r => {setOffices(r.data);})
         }, []);
 
         const loadOffices = async () => {
@@ -65,7 +65,8 @@ export default function NewEmployee(props){
                 const menu = () => { history.push('/') };
 
                 let dtExpiracao = [...Cookies.get('dt_expiracao')];
-
+                console.log('dt_expiracao ' + dtExpiracao);
+                console.log(new Date);
                 if(new Date() > dtExpiracao) {
                     notifyToken('Token expirado, faça login novamente.');
 
@@ -94,8 +95,6 @@ export default function NewEmployee(props){
 
                 <div className="content">
                     <form onSubmit={handleNewEmployee}>
-                        <br/>
-                        <br/>
                         <h1>Cadastrar novo funcionário</h1>
                         <p>Preencha todos os campos para cadastrar.</p>
                         <br/>
@@ -159,6 +158,17 @@ export default function NewEmployee(props){
                             />
                         </div>
                         
+                        <select
+                        onChange={e => setDs_office(e.target.value)}
+                        name="office"
+                        id="office"
+                        value={ds_office}
+                        >
+                                {offices.map(o => (
+                                    <option key={o.ds_office} value={o.ds_office}>{o.ds_office}</option>
+                                ))}
+                        </select>
+
                         <div className="radio">
                             <input 
                             type="radio"
@@ -179,18 +189,20 @@ export default function NewEmployee(props){
                             onChange={e => setDs_active(e.target.value)}
                             />Ativo    
                         </div>
-                        <select
-                        onChange={e => setDs_office(e.target.value)}
-                        name="office"
-                        id="office"
-                        value={ds_office}
-                        >
-                                {offices.map(o => (
-                                    <option key={o.ds_office} value={o.ds_office}>{o.ds_office}</option>
-                                ))}
-                        </select>
-
                         <button className="button" type="submit">Cadastrar</button>
+
+                        <ToastContainer 
+                        position="top-center"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        limit={1}
+                        />
                     </form>
                 </div>
             </div>

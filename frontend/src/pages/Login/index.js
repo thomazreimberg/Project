@@ -23,25 +23,27 @@ export default class Logon{
         const notifyUnsuccess = function(response) { toast.error(response) };
 
         const menu = () => { history.push('/home') };
-        const inFifteenMinutes = new Date(new Date().getTime() + 1 * 60 * 1000);//Por enquanto deixei em 1 minuto para testar o tempo de expiracao
+        const inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);//Por enquanto deixei em 1 minuto para testar o tempo de expiracao
 
         async function handleLogin(e){
             e.preventDefault();
     
             try{
                 const response = await api.post('login', { nm_username, pw_password });
+
                 Cookies.remove('token');
                 Cookies.remove('dt_expiracao');
+
                 Cookies.set('token', response.data.token, { expires: inFifteenMinutes });
                 Cookies.set('dt_expiracao', response.data.dt_expiracao, {expires: inFifteenMinutes});
-    
+                
+                console.log('Token: ' + Cookies.get('dt_expiracao'));
                 notify('Usuário autenticado. Seja bem vindo!');
                 setTimeout(menu, 5000);
             }catch(err){
                 notifyUnsuccess('Falha no login, tente novamente.');
             }
         }
-    
     
         return(
             <div className="logon-container">
