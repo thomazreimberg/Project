@@ -19,7 +19,16 @@ class KeyController {
 
             return cryptoToken;
         } catch (e) {
-            return ('Ocorreu um erro, tente novamente.')
+            return ('Some error has occurred, try again.')
+        }
+    }
+
+    decryptofraphy(token: string) {
+        try {
+            let tokenArray = decrypt(token).split('|');
+            return tokenArray[3];
+        } catch (e) {
+            return ('Some error has occurred, try again.');
         }
     }
 }

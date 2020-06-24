@@ -32,7 +32,7 @@ export default function NewEmployee(props){
         const notify = function(response) { toast.success(response) };
         const notifyUnsuccess = function(response) { toast.error(response) };
         const notifyToken = function(response) { toast(response) };
-
+        const menu = () => { history.push('/') };
 
         useEffect(() => {
             loadOffices()
@@ -45,33 +45,25 @@ export default function NewEmployee(props){
 
         const handleNewEmployee = async (e) => {
             e.preventDefault();
-
-            const data = {
-                fs_employee,
-                sn_employee,
-                nm_username,
-                pw_password,
-                vl_salary,
-                ds_email,
-                dt_birth,
-                dt_admission,
-                aw_image: selectedFile,
-                ds_genre,
-                ds_active,
-                ds_office
-            };
-
             try{
-                const menu = () => { history.push('/') };
+                let token = Cookies.get('token');
 
-                let dtExpiracao = [...Cookies.get('dt_expiracao')];
-                console.log('dt_expiracao ' + dtExpiracao);
-                console.log(new Date);
-                if(new Date() > dtExpiracao) {
-                    notifyToken('Token expirado, faça login novamente.');
+                const data = {
+                    fs_employee,
+                    sn_employee,
+                    nm_username,
+                    pw_password,
+                    vl_salary,
+                    ds_email,
+                    dt_birth,
+                    dt_admission,
+                    aw_image: selectedFile,
+                    ds_genre,
+                    ds_active,
+                    ds_office,
+                    token
+                };
 
-                    setTimeout(menu, 5000);
-                }
                 await api.post('employees', data);
 
                 notify('Funcionário cadastrado com sucesso.');
