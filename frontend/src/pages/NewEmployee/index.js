@@ -79,8 +79,6 @@ export default function NewEmployee(props){
                 notifyUnsuccess('Erro ao efeturar o cadastro, tente novamente');
             }
         }
-
-
         
         return(
             <div className="new-employee-container">
