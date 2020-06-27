@@ -13,17 +13,17 @@ import BackGround from '../../assets/geek-store-background.png';
 
 export default function NewEmployee(props){
     
-        const [fs_employee, setFs_employee] = useState();
-        const [sn_employee, setSn_employee] = useState();
-        const [nm_username, setNm_username] = useState();
-        const [pw_password, setPw_password] = useState();
-        const [vl_salary, setVl_salary] = useState();
-        const [ds_email, setDs_email] = useState();
-        const [dt_birth, setDt_birth] = useState();
-        const [dt_admission, setDt_admission] = useState();
-        const [ds_genre, setDs_genre] = useState();
-        const [ds_active, setDs_active] = useState();
-        const [ds_office, setDs_office] = useState();
+        const [ fs_employee, setFs_employee ] = useState('');
+        const [ sn_employee, setSn_employee ] = useState('');
+        const [ nm_username, setNm_username ] = useState('');
+        const [ pw_password, setPw_password ] = useState('');
+        const [ vl_salary, setVl_salary ] = useState('');
+        const [ ds_email, setDs_email ] = useState('');
+        const [ dt_birth, setDt_birth ] = useState(new Date());
+        const [ dt_admission, setDt_admission ] = useState(new Date());
+        const [ ds_genre, setDs_genre ] = useState('');
+        const [ ds_active, setDs_active ] = useState(Boolean);
+        const [ ds_office, setDs_office ] = useState('');
         const [ selectedFile, setSelectedFile ] = useState(); 
         const [ offices, setOffices ] = useState([]);
 
@@ -45,43 +45,43 @@ export default function NewEmployee(props){
 
         const handleNewEmployee = async (e) => {
             e.preventDefault();
+            let token = Cookies.get('token');
+
+            const data = {
+                fs_employee,
+                sn_employee,
+                nm_username,
+                pw_password,
+                vl_salary,
+                ds_email,
+                dt_birth,
+                dt_admission,
+                aw_image: selectedFile,
+                ds_genre,
+                ds_active,
+                ds_office,
+                token
+            };
+
             try{
-                let token = Cookies.get('token');
-
-                const data = {
-                    fs_employee,
-                    sn_employee,
-                    nm_username,
-                    pw_password,
-                    vl_salary,
-                    ds_email,
-                    dt_birth,
-                    dt_admission,
-                    aw_image: selectedFile,
-                    ds_genre,
-                    ds_active,
-                    ds_office,
-                    token
-                };
-
                 await api.post('employees', data);
 
                 notify('Funcionário cadastrado com sucesso.');
             }catch(err){
-                notifyUnsuccess('Erro ao efeturar o cadastro, tente novamente');
+                notifyUnsuccess(err);
             }
         }
         
         return(
             <div className="new-employee-container">
                 <header>
-                        <img src={BackGround} alt="Geek Store"/>
+                    <img src={BackGround} alt="Geek Store"/>
 
-                        <Link className="back-link" to="/home">
-                            <FiArrowLeft size={16} color="#E02041" />
-                            Voltar para home
-                        </Link >
-                    </header>
+                    <Link className="back-link" to="/home">
+                        <FiArrowLeft size={16} color="#E02041" />
+                        Voltar para home
+                    </Link >
+                </header>
 
                 <div className="content">
                     <form onSubmit={handleNewEmployee}>
@@ -90,23 +90,20 @@ export default function NewEmployee(props){
                         <br/>
                         <Dropzone onFileUploaded={setSelectedFile} />
 
-                        <input 
+                        <input
                         placeholder="Nome do funcionário"
-                        type="text"
                         value={fs_employee}
                         onChange={e => setFs_employee(e.target.value)}
                         />
 
                         <input 
                         placeholder="Sobrenome do funcionário"
-                        type="text"
                         value={sn_employee}
                         onChange={e => setSn_employee(e.target.value)}
                         />
 
                         <input 
                         placeholder="Nome do usuário"
-                        type="text"
                         value={nm_username}
                         onChange={e => setNm_username(e.target.value)}
                         />
