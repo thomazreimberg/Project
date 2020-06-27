@@ -117,7 +117,7 @@ class EmployeesController {
 
             await trx.commit();
     
-            return response.json('Funcionário cadastrado com sucesso.');
+            return response.status(500).json('Funcionário cadastrado com sucesso.');
         } catch (error) {
             return response.status(401).json(error);
         }
