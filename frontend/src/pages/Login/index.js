@@ -23,7 +23,7 @@ export default class Logon{
         const notifyUnsuccess = function(response) { toast.error(response) };
 
         const menu = () => { history.push('/home') };
-        const inFifteenMinutes = new Date(new Date().getTime() + 5 * 60 * 1000);//Por 
+        const inFifteenMinutes = new Date(new Date().getTime() + 100 * 60 * 1000);//Por 
 
         async function handleLogin(e){
             e.preventDefault();

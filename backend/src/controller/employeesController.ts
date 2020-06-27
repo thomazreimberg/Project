@@ -73,7 +73,6 @@ class EmployeesController {
                 ds_email,
                 dt_birth,
                 dt_admission,
-                aw_image,
                 ds_genre,
                 ds_active,
                 ds_office,
@@ -87,7 +86,7 @@ class EmployeesController {
                 .first();
 
             const id_office = tb_office.id_office;
-
+            console.log(id_office);
             const employee = {
                 fs_employee,
                 sn_employee,
@@ -101,25 +100,23 @@ class EmployeesController {
                 ds_genre,
                 ds_active,
                 id_office,
-                token
             };
             
             let expirationDate = new Date(cryptography.decryptography(token));
-            if(new Date > expirationDate) {
-                throw ('Token expirado, faça login novamente.');
-            }
-
+            //if(new Date > expirationDate) {
+             //   throw ('Token expirado, faça login novamente.');
+            //}
             const flag = employeesBusiness.create(employee);
             if(flag != ''){
                 throw (flag);
             }
             await trx('tb_employees').insert(employee);
-
+            console.log('chegou aki');
             await trx.commit();
-    
+            console.log('chegou depois do commit');
             return response.status(500).json('Funcionário cadastrado com sucesso.');
         } catch (error) {
-            return response.status(401).json(error);
+            return response.status(400).json(error);
         }
     }
 

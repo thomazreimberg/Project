@@ -56,7 +56,6 @@ export default function NewEmployee(props){
                 ds_email,
                 dt_birth,
                 dt_admission,
-                aw_image: selectedFile,
                 ds_genre,
                 ds_active,
                 ds_office,
