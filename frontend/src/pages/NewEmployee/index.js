@@ -57,15 +57,16 @@ export default function NewEmployee(props){
                 ds_email,
                 dt_birth,
                 dt_admission,
+                aw_image: selectedFile,
                 ds_genre,
                 ds_active,
                 ds_office,
                 token
             };
-
             try{
+                console.log('cargo' + ds_office);
                 await api.post('employees', data);
-                console.log('saida de dados.');
+                console.log('saída de dados.');
                 notify('Funcionário cadastrado com sucesso.');
             }catch(err){
                 notifyUnsuccess(err);

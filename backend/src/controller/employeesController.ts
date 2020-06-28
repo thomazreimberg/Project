@@ -55,7 +55,7 @@ class EmployeesController {
                 .where('ds_active', '=', Boolean(ds_active))
                 .where('ds_genre', '=', String(ds_genre))
                 .select('tb_employees.*');
-
+                
             return response.json(employees);
         } catch (error) {
             return response.status(401).json({ erro: error});
@@ -75,18 +75,22 @@ class EmployeesController {
                 dt_birth,
                 dt_admission,
                 ds_genre,
+                aw_image,
                 ds_active,
                 ds_office,
                 token
             } = request.body;
-            console.log('cargo: ' + ds_office);
+
             const trx = await knex.transaction();
         
             const tb_office = await trx('tb_office')
                 .where('ds_office', '=', String(ds_office))
                 .first();
-            console.log('aqui mesmo: ' + tb_office);
+
             const id_office = tb_office.id_office;
+            console.log('aqui mesmo: ' + id_office);
+            console.log('s');
+
             const employee = {
                 fs_employee,
                 sn_employee,
@@ -96,12 +100,13 @@ class EmployeesController {
                 ds_email,
                 dt_birth,
                 dt_admission,
-                aw_image: request.file.filename,
+                aw_image: 'aaa',
                 ds_genre,
                 ds_active,
                 id_office,
             };
-            
+
+            console.log('image' + aw_image);
             let expirationDate = new Date(cryptography.decryptography(token));
             if(new Date > expirationDate) {
                throw ('Token expirado, faça login novamente.');
