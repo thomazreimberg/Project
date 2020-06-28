@@ -44,6 +44,7 @@ export default function NewEmployee(props){
         }
 
         const handleNewEmployee = async (e) => {
+            console.log('opa');
             e.preventDefault();
             let token = Cookies.get('token');
 
@@ -64,7 +65,7 @@ export default function NewEmployee(props){
 
             try{
                 await api.post('employees', data);
-
+                console.log('saida de dados.');
                 notify('Funcionário cadastrado com sucesso.');
             }catch(err){
                 notifyUnsuccess(err);

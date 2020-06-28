@@ -64,6 +64,7 @@ class EmployeesController {
 
     async create(request: Request, response: Response) {
         try {
+            console.log('chegou');
             const {
                 fs_employee,
                 sn_employee,
@@ -78,15 +79,14 @@ class EmployeesController {
                 ds_office,
                 token
             } = request.body;
-
-            const trx = await knex.transaction();  
+            console.log('cargo: ' + ds_office);
+            const trx = await knex.transaction();
         
             const tb_office = await trx('tb_office')
                 .where('ds_office', '=', String(ds_office))
                 .first();
-
+            console.log('aqui mesmo: ' + tb_office);
             const id_office = tb_office.id_office;
-            console.log(id_office);
             const employee = {
                 fs_employee,
                 sn_employee,
@@ -103,20 +103,22 @@ class EmployeesController {
             };
             
             let expirationDate = new Date(cryptography.decryptography(token));
-            //if(new Date > expirationDate) {
-             //   throw ('Token expirado, faça login novamente.');
-            //}
+            if(new Date > expirationDate) {
+               throw ('Token expirado, faça login novamente.');
+            }
             const flag = employeesBusiness.create(employee);
             if(flag != ''){
+                console.log('business');
                 throw (flag);
             }
+            console.log('antes do insert');
             await trx('tb_employees').insert(employee);
-            console.log('chegou aki');
+            console.log('deu insert');
             await trx.commit();
-            console.log('chegou depois do commit');
-            return response.status(500).json('Funcionário cadastrado com sucesso.');
+            console.log('deu commit');
+            return response.status(200).json('Funcionário cadastrado com sucesso.');
         } catch (error) {
-            return response.status(400).json(error);
+            return response.status(401).json(error);
         }
     }
 
